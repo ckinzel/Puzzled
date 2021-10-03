@@ -1,0 +1,44 @@
+// Display the results of the matches
+//
+int search(std::string aTemplatLoc, std::string aImgLoc, cv::Mat src)
+{
+   const int WIDTH = 640;
+   const int HEIGHT = 480;
+
+   cv::Mat templ, ftmp[6];   // ftmp is what to display on
+
+   // Read in the template to be used for matching:
+   //
+   if ((templ = cv::imread(aTemplatLoc, 1)).empty())
+   {
+      cout << "Error on reading template " << aTemplatLoc << endl;
+      return -1;
+   }
+
+   for (int i = 0; i < 6; ++i)
+   {
+      cv::matchTemplate(src, templ, ftmp[i], i);
+      cv::normalize(ftmp[i], ftmp[i], 1, 0, cv::NORM_MINMAX);
+   }
+
+   cv::namedWindow("Template", WINDOW_NORMAL);
+   cv::namedWindow("Image", WINDOW_AUTOSIZE);
+
+   cv::resizeWindow("Template", WIDTH, HEIGHT);
+
+   // Display
+   //
+   //cv::imshow("Template", templ);
+   cv::imshow("Image", src);
+
+   double minVal; double maxVal; Point minLoc; Point maxLoc;
+   minMaxLoc(ftmp[5], &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+
+   rectangle(templ, Point(maxLoc.x, maxLoc.y), Point(maxLoc.x + 50, maxLoc.y + 50), Scalar::all(0), 2, 8, 0);
+   //rectangle(result, maxLoc, Point(maxLoc.x, maxLoc.y), Scalar::all(0), 2, 150, 0);
+   // Let user view results:
+   //
+   //rectangle(templ, Point(100, 100), Point(200, 200);
+   cv::imshow("Template", templ);
+   cv::waitKey(0);
+}

@@ -1,0 +1,4 @@
+# Ignore embedded build dir; not recommended for use, but currently required for CI runners.
+/build/
+/opencv-4.5.3/
+token.txt
