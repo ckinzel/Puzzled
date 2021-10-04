@@ -25,4 +25,10 @@ void CommonFunctions::CropImage(cv::Mat& aImg, cv::Rect aRoi)
    cv::Mat cropped(aImg, aRoi);
    aImg = cropped;
 }
+
+void CommonFunctions::RotateImageCCW90(cv::Mat& aImg)
+{
+   cv::Point2f center((aImg.cols - 1) / 2.0, (aImg.rows - 1) / 2.0);
+   cv::warpAffine(aImg, aImg, cv::getRotationMatrix2D(center, 90, 1.0), aImg.size());
+}
 }

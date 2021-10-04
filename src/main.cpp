@@ -19,11 +19,15 @@ int main(int argc, char** argv)
    std::string fin = "find.jpg";
    // Raw Puzzle pieces
    std::string raw = "FacePiece.jpg";
+   std::string bubble = "BubbleBottomPiece.jpg";
+   std::string fish = "fish_scales.jpg";
+   std::string center = "center_bubble.jpg";
 
    puzzled::Puzzled crop;
+   puzzled::CommonFunctions func;
 
    crop.LoadTemplate(FilePath + BoxCoverImg);
-   crop.LoadPiece(FilePath + raw);
+   crop.LoadPiece(FilePath + center);
    crop.Solve();
 
    return 0;
