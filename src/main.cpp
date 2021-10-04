@@ -1,12 +1,8 @@
 //Uncomment the following line if you are compiling this code in Visual Studio
 //#include "stdafx.h"
-
-#include <opencv2/opencv.hpp>
 #include <iostream>
 #include "Puzzled.hpp"
-using namespace cv;
-using namespace std;
-
+#include "CommonFunctions.hpp"
 
 int main(int argc, char** argv)
 {
@@ -24,12 +20,11 @@ int main(int argc, char** argv)
    // Raw Puzzle pieces
    std::string raw = "FacePiece.jpg";
 
-   //search(FilePath + BoxCoverImg, FilePath + Cheating, foo);
-   Puzzled crop;
+   puzzled::Puzzled crop;
 
    crop.LoadTemplate(FilePath + BoxCoverImg);
-   crop.LoadPiece(FilePath + Cheating);
+   crop.LoadPiece(FilePath + raw);
    crop.Solve();
-   //crop.CropPiece();
+
    return 0;
 }

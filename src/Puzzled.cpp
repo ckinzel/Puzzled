@@ -1,5 +1,6 @@
 #include "Puzzled.hpp"
-
+namespace puzzled
+{
 cv::Rect Puzzled::sRectangle;
 bool Puzzled::sDrawingBox = false;
 bool Puzzled::sIsPieceCropped = false;
@@ -10,6 +11,9 @@ void Puzzled::LoadPiece(const std::string& aFilePath)
    {
       throw std::runtime_error("Could not open file: " + aFilePath);
    }
+   mFunctions->CropImage(mPuzzlePiece, SCANNER_CROP);
+   CropPiece();
+   cv::resize(mPuzzlePiece, mPuzzlePiece, cv::Size(mPuzzlePiece.cols * BUBBLE_PUZZLE_SCALE, mPuzzlePiece.rows * BUBBLE_PUZZLE_SCALE));
 }
 
 void Puzzled::LoadTemplate(const std::string& aFilePath)
@@ -87,7 +91,9 @@ void Puzzled::CropPiece()
    {
       // If the user saved the cropped piece break out of the while loop
       if (sIsPieceCropped == true)
-      { break; }
+      {
+         break;
+      }
       // Write a temporary image with a movable rectangle
       mPuzzlePiece.copyTo(tempImage);
       if (sDrawingBox)
@@ -104,8 +110,7 @@ void Puzzled::CropPiece()
 
 void Puzzled::Solve()
 {
-   const int WIDTH = 640;
-   const int HEIGHT = 480;
+
 
    cv::Mat ftmp[6];   // ftmp is what to display on
 
@@ -119,12 +124,7 @@ void Puzzled::Solve()
    cv::namedWindow("Template", cv::WINDOW_NORMAL);
    cv::namedWindow("Image", cv::WINDOW_AUTOSIZE);
 
-   cv::resizeWindow("Template", WIDTH, HEIGHT);
-
-   // Display
-   //
-   //cv::imshow("Template", templ);
-
+   cv::resizeWindow("Template", WIDTH_640, HEIGHT_480);
 
    double minVal; double maxVal; cv::Point minLoc; cv::Point maxLoc;
    minMaxLoc(ftmp[5], &minVal, &maxVal, &minLoc, &maxLoc, cv::Mat());
@@ -138,3 +138,4 @@ void Puzzled::Solve()
    cv::imshow("Image", mPuzzlePiece);
    cv::waitKey(0);
 }
+} // namespace puzzled

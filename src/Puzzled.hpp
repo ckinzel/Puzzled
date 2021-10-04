@@ -1,6 +1,9 @@
 #pragma once
 #include <opencv2/opencv.hpp>
-
+#include "definitions.hpp"
+#include "CommonFunctions.hpp"
+namespace puzzled
+{
 class Puzzled
 {
    public:
@@ -10,18 +13,19 @@ class Puzzled
       void LoadPiece(const std::string& aFilePath);
       // Load the picture of the whole puzzle
       void LoadTemplate(const std::string& aFilePath);
+
+      // Find the location of the piece in the puzzle
+      void Solve();
+
+
+   private:
       // Crop the puzzle piece from an irregular shape to a rectangle
       void CropPiece();
-      // Find the location of the [iece in the puzzle
-      void Solve();
       // Callback function fore mouse event
       static void OnMouseHandle(int event, int x, int y, int flags, void* param);
       // Draw a rectangle on an image
       static void Puzzled::DrawRectangle(cv::Mat& img, cv::Rect box);
 
-   private:
-      // Name of the display window for cropping a puzzle piece
-      const std::string CROP_WINDOW = "Crop Puzzle Piece";
       // This stores the image of the entire finished puzzle
       cv::Mat mTemplate;
       // This stores the image of the puzzle piece to find
@@ -32,5 +36,8 @@ class Puzzled
       static cv::Rect sRectangle;
       // Event variable for mouse callback event move. True when the left button is pressed
       static bool sDrawingBox;
+      // Common Function object
+      CommonFunctions* mFunctions;
 
 };
+} // namespace puzzled
