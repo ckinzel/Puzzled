@@ -129,7 +129,8 @@ void Puzzled::Solve()
    double minVal; double maxVal; cv::Point minLoc; cv::Point maxLoc;
    minMaxLoc(ftmp[5], &minVal, &maxVal, &minLoc, &maxLoc, cv::Mat());
 
-   rectangle(mTemplate, cv::Point(maxLoc.x, maxLoc.y), cv::Point(maxLoc.x + 50, maxLoc.y + 50), cv::Scalar::all(0), 2, 8, 0);
+   //rectangle(mTemplate, cv::Point(maxLoc.x, maxLoc.y), cv::Point(maxLoc.x + 50, maxLoc.y + 50), cv::Scalar::all(0), 2, 8, 0);
+   cv::circle(mTemplate, cv::Point(maxLoc.x + DETECTION_OFFSET, maxLoc.y + DETECTION_OFFSET), RESULT_CIRCLE_RADIUS, GREEN, 5);
    //rectangle(result, maxLoc, Point(maxLoc.x, maxLoc.y), Scalar::all(0), 2, 150, 0);
    // Let user view results:
    //

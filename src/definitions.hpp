@@ -19,5 +19,10 @@ const std::string GENERIC_WINDOW = "Display";
 const cv::Rect SCANNER_CROP(0, 0, 700, 700);
 // Scalar between box cover and actual puzzle
 const float BUBBLE_PUZZLE_SCALE = 0.3;
-
+// Radius of the circle around the place on the template that the search piece is found
+const int RESULT_CIRCLE_RADIUS = 30;
+// Offset of the detetion circle to line it up exactly where it goes
+const int DETECTION_OFFSET = 20;
+// Colors
+const cv::Scalar GREEN(0, 255, 0);
 } // namespace puzzled
