@@ -1,7 +1,8 @@
 #pragma once
 #include <opencv2/opencv.hpp>
+#include <memory>
 #include "definitions.hpp"
-#include "CommonFunctions.hpp"
+#include "MatFunctions.hpp"
 namespace puzzled
 {
 class Puzzled
@@ -25,6 +26,7 @@ class Puzzled
       static void OnMouseHandle(int event, int x, int y, int flags, void* param);
       // Draw a rectangle on an image
       static void Puzzled::DrawRectangle(cv::Mat& img, cv::Rect box);
+      //
 
       // This stores the image of the entire finished puzzle
       cv::Mat mTemplate;
@@ -37,7 +39,7 @@ class Puzzled
       // Event variable for mouse callback event move. True when the left button is pressed
       static bool sDrawingBox;
       // Common Function object
-      CommonFunctions* mFunctions;
+      MatFunctions* mFunctions;
 
 };
 } // namespace puzzled

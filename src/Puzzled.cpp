@@ -7,10 +7,7 @@ bool Puzzled::sIsPieceCropped = false;
 
 void Puzzled::LoadPiece(const std::string& aFilePath)
 {
-   if ((mPuzzlePiece = cv::imread(aFilePath, 1)).empty())
-   {
-      throw std::runtime_error("Could not open file: " + aFilePath);
-   }
+   mPuzzlePiece = mFunctions->LoadImage(aFilePath);
    mFunctions->CropImage(mPuzzlePiece, SCANNER_CROP);
    CropPiece();
    cv::resize(mPuzzlePiece, mPuzzlePiece, cv::Size(mPuzzlePiece.cols * BUBBLE_PUZZLE_SCALE, mPuzzlePiece.rows * BUBBLE_PUZZLE_SCALE));
@@ -18,10 +15,7 @@ void Puzzled::LoadPiece(const std::string& aFilePath)
 
 void Puzzled::LoadTemplate(const std::string& aFilePath)
 {
-   if ((mTemplate = cv::imread(aFilePath, 1)).empty())
-   {
-      throw std::runtime_error("Could not open file: " + aFilePath);
-   }
+   mTemplate = mFunctions->LoadImage(aFilePath);
 }
 
 void Puzzled::DrawRectangle(cv::Mat& img, cv::Rect box)
@@ -121,22 +115,11 @@ void Puzzled::Solve()
       cv::normalize(ftmp[i], ftmp[i], 1, 0, cv::NORM_MINMAX);
    }
 
-   cv::namedWindow("Template", cv::WINDOW_NORMAL);
-   cv::namedWindow("Image", cv::WINDOW_AUTOSIZE);
-
-   cv::resizeWindow("Template", WIDTH_640, HEIGHT_480);
-
    double minVal; double maxVal; cv::Point minLoc; cv::Point maxLoc;
    minMaxLoc(ftmp[5], &minVal, &maxVal, &minLoc, &maxLoc, cv::Mat());
 
-   //rectangle(mTemplate, cv::Point(maxLoc.x, maxLoc.y), cv::Point(maxLoc.x + 50, maxLoc.y + 50), cv::Scalar::all(0), 2, 8, 0);
    cv::circle(mTemplate, cv::Point(maxLoc.x + DETECTION_OFFSET, maxLoc.y + DETECTION_OFFSET), RESULT_CIRCLE_RADIUS, GREEN, 5);
-   //rectangle(result, maxLoc, Point(maxLoc.x, maxLoc.y), Scalar::all(0), 2, 150, 0);
    // Let user view results:
-   //
-   //rectangle(templ, Point(100, 100), Point(200, 200);
-   cv::imshow("Template", mTemplate);
-   cv::imshow("Image", mPuzzlePiece);
-   cv::waitKey(0);
+   mFunctions->DisplayImage(mTemplate, TEMPLATE_DISPLAY, WIDTH_640, HEIGHT_480);
 }
 } // namespace puzzled

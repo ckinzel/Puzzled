@@ -2,7 +2,7 @@
 //#include "stdafx.h"
 #include <iostream>
 #include "Puzzled.hpp"
-#include "CommonFunctions.hpp"
+#include "MatFunctions.hpp"
 
 int main(int argc, char** argv)
 {
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
    std::string center = "center_bubble.jpg";
 
    puzzled::Puzzled crop;
-   puzzled::CommonFunctions func;
+   puzzled::MatFunctions func;
 
    crop.LoadTemplate(FilePath + BoxCoverImg);
    crop.LoadPiece(FilePath + center);
