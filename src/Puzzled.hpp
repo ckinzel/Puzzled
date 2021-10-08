@@ -26,12 +26,11 @@ class Puzzled
       static void OnMouseHandle(int event, int x, int y, int flags, void* param);
       // Draw a rectangle on an image
       static void Puzzled::DrawRectangle(cv::Mat& img, cv::Rect box);
-      //
 
       // This stores the image of the entire finished puzzle
-      cv::Mat mTemplate;
+      std::unique_ptr<cv::Mat> mTemplate;
       // This stores the image of the puzzle piece to find
-      cv::Mat mPuzzlePiece;
+      std::unique_ptr<cv::Mat> mPuzzlePiece;
       // Used to exit the while loop in CropPiece when the puzzle piece image has been cropped
       static bool sIsPieceCropped;
       // Rectangle to be drawn by the mouse callback for croppng the puzzle piece image
@@ -39,7 +38,7 @@ class Puzzled
       // Event variable for mouse callback event move. True when the left button is pressed
       static bool sDrawingBox;
       // Common Function object
-      MatFunctions* mFunctions;
+      std::unique_ptr<MatFunctions> mFunctions;
 
 };
 } // namespace puzzled

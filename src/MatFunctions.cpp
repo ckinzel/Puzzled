@@ -10,14 +10,14 @@ void MatFunctions::DisplayImage(const cv::Mat& aImg, const std::string aWindowNa
    cv::waitKey(0);
 }
 
-cv::Mat MatFunctions::LoadImage(const std::string& aFileName)
+std::unique_ptr<cv::Mat> MatFunctions::LoadImage(const std::string& aFileName)
 {
    cv::Mat img_in;
    if ((img_in = cv::imread(aFileName, 1)).empty())
    {
       throw std::runtime_error("Could not open file: " + aFileName);
    }
-   return img_in;
+   return std::make_unique<cv::Mat>(img_in);
 }
 
 void MatFunctions::CropImage(cv::Mat& aImg, const cv::Rect& aRoi)

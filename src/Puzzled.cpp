@@ -8,9 +8,9 @@ bool Puzzled::sIsPieceCropped = false;
 void Puzzled::LoadPiece(const std::string& aFilePath)
 {
    mPuzzlePiece = mFunctions->LoadImage(aFilePath);
-   mFunctions->CropImage(mPuzzlePiece, SCANNER_CROP);
+   mFunctions->CropImage(*mPuzzlePiece, SCANNER_CROP);
    CropPiece();
-   cv::resize(mPuzzlePiece, mPuzzlePiece, cv::Size(mPuzzlePiece.cols * BUBBLE_PUZZLE_SCALE, mPuzzlePiece.rows * BUBBLE_PUZZLE_SCALE));
+   cv::resize(*mPuzzlePiece, *mPuzzlePiece, cv::Size(mPuzzlePiece->cols * BUBBLE_PUZZLE_SCALE, mPuzzlePiece->rows * BUBBLE_PUZZLE_SCALE));
 }
 
 void Puzzled::LoadTemplate(const std::string& aFilePath)
@@ -26,7 +26,8 @@ void Puzzled::DrawRectangle(cv::Mat& img, cv::Rect box)
 
 void Puzzled::OnMouseHandle(int event, int x, int y, int flags, void* param)
 {
-   cv::Mat& image = *(cv::Mat*)param;
+   std::unique_ptr<cv::Mat>* foo = static_cast<std::unique_ptr<cv::Mat>*>(param);
+   cv::Mat& image = **foo;
    switch (event)
    {
       case cv::EVENT_MOUSEMOVE:      // When mouse moves, get the current rectangle's width and height
@@ -89,7 +90,7 @@ void Puzzled::CropPiece()
          break;
       }
       // Write a temporary image with a movable rectangle
-      mPuzzlePiece.copyTo(tempImage);
+      mPuzzlePiece->copyTo(tempImage);
       if (sDrawingBox)
       {
          DrawRectangle(tempImage, sRectangle);
@@ -104,22 +105,20 @@ void Puzzled::CropPiece()
 
 void Puzzled::Solve()
 {
-
-
    cv::Mat ftmp[6];   // ftmp is what to display on
 
    // Read in the template to be used for matching:
    for (int i = 0; i < 6; ++i)
    {
-      cv::matchTemplate(mPuzzlePiece, mTemplate, ftmp[i], i);
+      cv::matchTemplate(*mPuzzlePiece, *mTemplate, ftmp[i], i);
       cv::normalize(ftmp[i], ftmp[i], 1, 0, cv::NORM_MINMAX);
    }
 
    double minVal; double maxVal; cv::Point minLoc; cv::Point maxLoc;
    minMaxLoc(ftmp[5], &minVal, &maxVal, &minLoc, &maxLoc, cv::Mat());
 
-   cv::circle(mTemplate, cv::Point(maxLoc.x + DETECTION_OFFSET, maxLoc.y + DETECTION_OFFSET), RESULT_CIRCLE_RADIUS, GREEN, 5);
+   cv::circle(*mTemplate, cv::Point(maxLoc.x + DETECTION_OFFSET, maxLoc.y + DETECTION_OFFSET), RESULT_CIRCLE_RADIUS, GREEN, 5);
    // Let user view results:
-   mFunctions->DisplayImage(mTemplate, TEMPLATE_DISPLAY, WIDTH_640, HEIGHT_480);
+   mFunctions->DisplayImage(*mTemplate, TEMPLATE_DISPLAY, WIDTH_640, HEIGHT_480);
 }
 } // namespace puzzled
