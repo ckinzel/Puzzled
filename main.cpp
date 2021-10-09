@@ -27,12 +27,14 @@ int main(int argc, char** argv)
    puzzled::MatFunctions func;
 
    //crop.LoadTemplate(FilePath + BoxCoverImg);
-   //crop.LoadPiece(FilePath + center);
+   // crop.LoadPiece(FilePath + center;
    //crop.Solve();
 
    cv::Mat white(400, 400, CV_8UC1, puzzled::WHITE);
    cv::rectangle(white, cv::Point(0, 0), cv::Point(200, 200), puzzled::BLACK, -1);
+   std::string file = "white.jpg";
+   //func.DisplayImage(white, "test", 640, 480);
+   //cv::imwrite("white.jpg", white);
 
-   func.DisplayImage(white, "test", 640, 480);
    return 0;
 }

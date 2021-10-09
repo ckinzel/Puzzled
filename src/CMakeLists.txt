@@ -5,7 +5,7 @@ project(Puzzled)
 file(GLOB SRC *.?pp)
 set(OpenCV_STATIC ON)
 find_package( OpenCV REQUIRED )
-add_executable(puzzled ${SRC})
+add_library(puzzled STATIC ${SRC})
 
 #message(${CMAKE_SOURCE_DIR})
 target_include_directories(puzzled PUBLIC ${OpenCV_INCLUDE_DIRS})

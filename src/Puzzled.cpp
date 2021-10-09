@@ -121,4 +121,5 @@ void Puzzled::Solve()
    // Let user view results:
    mFunctions->DisplayImage(*mTemplate, TEMPLATE_DISPLAY, WIDTH_640, HEIGHT_480);
 }
+
 } // namespace puzzled

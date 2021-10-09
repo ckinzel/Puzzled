@@ -16,7 +16,9 @@ class MatFunctions
       // Rotate a matrix counter clockwise
       void RotateImageCCW(std::unique_ptr<cv::Mat>& aImg, const std::unique_ptr<cv::Mat>& aRotationMatrix);
       // Get a 90 degree rotation matrix to pass to RotateImageCCW
-      const std::unique_ptr<cv::Mat> GetRotationMatrix90(const cv::Mat& aImg);
+      std::unique_ptr<cv::Mat> GetRotationMatrix90(const std::unique_ptr<cv::Mat>& aImg);
+      // Crop an image matrix to perfectly square
+      void SquareImage(std::unique_ptr<cv::Mat>& aImg);
    private:
 
 };

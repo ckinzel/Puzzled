@@ -31,9 +31,17 @@ void MatFunctions::RotateImageCCW(std::unique_ptr<cv::Mat>& aImg, const std::uni
    cv::warpAffine(*aImg, *aImg, *aRotationMatrix, aImg->size());
 }
 
-const std::unique_ptr<cv::Mat> MatFunctions::GetRotationMatrix90(const cv::Mat& aImg)
+std::unique_ptr<cv::Mat> MatFunctions::GetRotationMatrix90(const std::unique_ptr<cv::Mat>& aImg)
 {
-   cv::Point2f center((aImg.cols - 1) / 2.0, (aImg.rows - 1) / 2.0);
+   cv::Point2f center((aImg->cols - 1) / 2.0, (aImg->rows - 1) / 2.0);
    return std::make_unique<cv::Mat>(cv::getRotationMatrix2D(center, 90, 1.0));
+}
+
+void MatFunctions::SquareImage(std::unique_ptr<cv::Mat>& aImg)
+{
+
+   auto dimension = (aImg->rows < aImg->cols) ? aImg->rows : aImg->cols;
+   cv::Rect roi(0, 0, dimension, dimension);
+   *aImg = (*aImg)(roi);
 }
 }

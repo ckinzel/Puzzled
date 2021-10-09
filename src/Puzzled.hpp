@@ -17,7 +17,6 @@ class Puzzled
       // Find the location of the piece in the puzzle
       void Solve();
 
-
    private:
       // Crop the puzzle piece from an irregular shape to a rectangle
       void CropPiece();

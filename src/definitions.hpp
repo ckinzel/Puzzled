@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include <opencv2/opencv.hpp>
 namespace puzzled
 {
 // Window size constants
