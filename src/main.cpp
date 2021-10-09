@@ -26,9 +26,13 @@ int main(int argc, char** argv)
    puzzled::Puzzled crop;
    puzzled::MatFunctions func;
 
-   crop.LoadTemplate(FilePath + BoxCoverImg);
-   crop.LoadPiece(FilePath + center);
-   crop.Solve();
+   //crop.LoadTemplate(FilePath + BoxCoverImg);
+   //crop.LoadPiece(FilePath + center);
+   //crop.Solve();
 
+   cv::Mat white(400, 400, CV_8UC1, puzzled::WHITE);
+   cv::rectangle(white, cv::Point(0, 0), cv::Point(200, 200), puzzled::BLACK, -1);
+
+   func.DisplayImage(white, "test", 640, 480);
    return 0;
 }

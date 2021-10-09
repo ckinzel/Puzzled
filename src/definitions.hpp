@@ -25,4 +25,6 @@ const int RESULT_CIRCLE_RADIUS = 30;
 const int DETECTION_OFFSET = 20;
 // Colors
 const cv::Scalar GREEN(0, 255, 0);
+const cv::Scalar BLACK(0, 0, 0);
+const cv::Scalar WHITE(255, 255, 255);
 } // namespace puzzled

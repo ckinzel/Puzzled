@@ -14,7 +14,6 @@ class Puzzled
       void LoadPiece(const std::string& aFilePath);
       // Load the picture of the whole puzzle
       void LoadTemplate(const std::string& aFilePath);
-
       // Find the location of the piece in the puzzle
       void Solve();
 

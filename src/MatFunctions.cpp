@@ -26,7 +26,7 @@ void MatFunctions::CropImage(cv::Mat& aImg, const cv::Rect& aRoi)
    aImg = cropped;
 }
 
-void MatFunctions::RotateImageCCW(std::unique_ptr<cv::Mat> aImg, const std::unique_ptr<cv::Mat> aRotationMatrix)
+void MatFunctions::RotateImageCCW(std::unique_ptr<cv::Mat>& aImg, const std::unique_ptr<cv::Mat>& aRotationMatrix)
 {
    cv::warpAffine(*aImg, *aImg, *aRotationMatrix, aImg->size());
 }
